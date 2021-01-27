@@ -4,6 +4,7 @@ const Category = require("./Category");
 const slugify = require("slugify");
 
 router.get("/admin/categories/new", (req, res) => {
+    //caminho da view
     res.render("admin/categories/new");
 });
 
@@ -23,6 +24,11 @@ router.post("/categories/save",(req,res) => {
         //se digitar um valor invalido redireciona para o formulario        
         res.redirect("admin/categories/new");
     }
+});
+
+router.get("/admin/categories",(req, res) => {
+    //caminho da view
+    res.render("admin/categories/index");
 });
 
 module.exports = router;
