@@ -27,8 +27,11 @@ router.post("/categories/save",(req,res) => {
 });
 
 router.get("/admin/categories",(req, res) => {
-    //caminho da view
-    res.render("admin/categories/index");
+    Category.findAll().then(categories => {
+        //caminho da view
+        //passa  a variavel categories para utilizar na view
+        res.render("admin/categories/index",{categories:categories});
+    });
 });
 
 module.exports = router;
