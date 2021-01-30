@@ -8,7 +8,7 @@ const CategoriesController = require("./categories/CategoriesController");
 const ArticlesController = require("./articles/ArticlesController");
 
 //Models
-const Article = require("./articles/Aticle");
+const Article = require("./articles/Article");
 const Category = require("./categories/Category");
 
 //View engine
