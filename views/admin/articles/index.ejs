@@ -1,0 +1,34 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new"> Criar novo Artigo</a>
+    <hr>
+    <table class="table">
+       <thead>
+           <tr>
+               <th>ID</th>
+               <th>Title</th>
+               <th>Slug</th>
+               <th>Category</th>
+               <th>Ações</th>
+           </tr>
+       </thead>  
+       <tbody>
+
+       </tbody>
+    </table>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script>
+    function confirmaDelecao(event, form){
+        //vai impedir o envio do submit do formulario
+        event.preventDefault();
+        //retorna true ou false
+        var decision = confirm('Deseja remover o artigo ?');
+        if (decision) {
+           form.submit();
+        } 
+    }
+</script>
