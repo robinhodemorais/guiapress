@@ -36,7 +36,11 @@ app.use("/",CategoriesController);
 app.use("/",ArticlesController);
 
 app.get("/", (req, res) => {
-    Article.findAll().then(articles => {
+    Article.findAll({
+      order:[
+        ['id','DESC']
+      ]
+    }).then(articles => {
       //renderiza a view view\index.ejs
       res.render("index",{articles:articles});
     })
