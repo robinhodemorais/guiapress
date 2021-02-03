@@ -71,6 +71,26 @@ app.get("/:slug",(req,res) => {
   });
 });
 
+app.get("/category/:slug",(req,res) => {
+  var slug = req.params.slug;
+  Category.findOne({
+    where: {
+      slug:slug
+    },
+    include:[{model:Article}]
+  }).then(category => {
+    if (category != undefined ) {
+      Category.findAll().then(categories => {
+        res.render("index",{articles:category.articles, categories:categories});
+      });
+    } else {
+      res.rendiret("/");
+    }
+  }).catch( err => {
+    res.rendiret("/");
+  });
+});
+
 app.listen(8080,() => {
     console.log("O servidor está rodando na porta 8080");
 });
