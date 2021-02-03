@@ -36,8 +36,10 @@ app.use("/",CategoriesController);
 app.use("/",ArticlesController);
 
 app.get("/", (req, res) => {
-    //renderiza a view view\index.ejs
-    res.render("index");
+    Article.findAll().then(articles => {
+      //renderiza a view view\index.ejs
+      res.render("index",{articles:articles});
+    })
 });
 
 app.listen(8080,() => {
