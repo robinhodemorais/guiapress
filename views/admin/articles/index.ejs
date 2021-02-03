@@ -16,7 +16,21 @@
            </tr>
        </thead>  
        <tbody>
-
+        <% articles.forEach(article => { %> 
+            <tr>
+                <th><%= article.id %></th>
+                <th><%= article.title %></th>
+                <th><%= article.slug %></th>
+                <th><%= article.categoryId %></th>
+                <th>
+                    <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning">Editar</a>
+                    <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmaDelecao(event,this)">
+                        <input type="hidden" name="id" value="<%= article.id %>">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>
+                </th>
+            </tr>
+           <% }) %> 
        </tbody>
     </table>
 </div>
