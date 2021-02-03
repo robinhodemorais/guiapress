@@ -41,9 +41,13 @@ app.get("/", (req, res) => {
         ['id','DESC']
       ]
     }).then(articles => {
-      //renderiza a view view\index.ejs
-      res.render("index",{articles:articles});
-    })
+
+      Category.findAll().then(categories => {
+        //renderiza a view view\index.ejs
+        res.render("index",{articles:articles, categories:categories});
+      });
+
+    });
 });
 
 app.get("/:slug",(req,res) => {
@@ -53,8 +57,12 @@ app.get("/:slug",(req,res) => {
       slug: slug
     }
   }).then(article => {
-    if (article => undefined ) {
-      res.render("article",{article:article});
+    if (article != undefined ) {
+      Category.findAll().then(categories => {
+        //renderiza a view view\index.ejs
+        res.render("article",{article:article, categories:categories});
+      });
+
     } else {
       res.rendiret("/");
     }
