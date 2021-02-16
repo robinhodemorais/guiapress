@@ -1,18 +1,30 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const connection = require("./database/database");
 
 //Controller
 const CategoriesController = require("./categories/CategoriesController");
 const ArticlesController = require("./articles/ArticlesController");
+const UsersController = require("./users/UsersController");
+
 
 //Models
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const User = require("./users/Users");
 
 //View engine
 app.set('view engine', 'ejs');
+
+//Sessions
+app.use(session({
+  secret: "flex",
+  cookie: {
+    maxAge: 3000000
+  }
+}));
 
 //Configuração para o express trabalhar com os arquivos staticos
 //css, html, js e etc
@@ -34,12 +46,15 @@ connection
 //coloca em uso as rotas
 app.use("/",CategoriesController);
 app.use("/",ArticlesController);
+app.use("/",UsersController);
+
 
 app.get("/", (req, res) => {
     Article.findAll({
       order:[
         ['id','DESC']
       ]
+      , limit:4
     }).then(articles => {
 
       Category.findAll().then(categories => {
@@ -64,10 +79,10 @@ app.get("/:slug",(req,res) => {
       });
 
     } else {
-      res.rendiret("/");
+      res.redirect("/");
     }
   }).catch(err => {
-    res.rendiret("/");
+    res.redirect("/");
   });
 });
 
@@ -84,13 +99,13 @@ app.get("/category/:slug",(req,res) => {
         res.render("index",{articles:category.articles, categories:categories});
       });
     } else {
-      res.rendiret("/");
+      res.redirect("/");
     }
   }).catch( err => {
-    res.rendiret("/");
+    res.redirect("/");
   });
 });
 
-app.listen(8080,() => {
-    console.log("O servidor está rodando na porta 8080");
+app.listen(3000,() => {
+    console.log("O servidor está rodando na porta 3000");
 });
